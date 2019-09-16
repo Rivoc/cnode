@@ -5,16 +5,12 @@ import App from './App'
 import router from './router'
 import 'styles/reset.css'
 import axios from 'axios'
+import 'styles/iconfont.css'
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
 
-})
+// 格式化最后回复的时间
 Vue.filter('formatDate', function (str) {
   if (!str) return ''
   var date = new Date(str)
@@ -36,4 +32,27 @@ Vue.filter('formatDate', function (str) {
   } else {
     return parseInt(time / 31536000000) + '年前'
   }
+})
+// 格式化帖子分类
+Vue.filter('formatTab', function (item) {
+  if (item.top === true) {
+    return '置顶'
+  } else if (item.good === true) {
+    return '精华'
+  } else if (item.good === true) {
+    return '精华'
+  } else if (item.tab === 'ask') {
+    return '问答'
+  } else if (item.tab === 'share') {
+    return '分享'
+  } else {
+    return '招聘'
+  }
+})
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
+
 })

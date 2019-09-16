@@ -1,7 +1,9 @@
 <template>
   <div>
     <HomeHeader></HomeHeader>
-    <home-post-list :postList="postList"></home-post-list>
+    <div id="main">
+      <home-post-list :postList="postList"></home-post-list>
+    </div>
   </div>
 </template>
 <script>
@@ -28,7 +30,6 @@ export default {
       })
     },
     handleGetDataSucc (response) {
-      console.log(response)
       let res = response.data
       if (res.success && res.data) {
         const data = res.data
@@ -41,4 +42,12 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+#main {
+  width: 90%;
+  max-width: 1400px;
+  min-width: 960px;
+  margin: 15px auto;
+  min-height: 400px;
+}
+</style>

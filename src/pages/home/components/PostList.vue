@@ -7,30 +7,37 @@
            alt="">
     </div>
     <!-- 数据返回显示主题帖子列表 -->
-    <div id="main">
-      <div id="container">
-        <div class="panel">
-          <ul>
-            <li v-for="(item,key) in postList"
-                :key="key"
-                class="cell">
-              <img :src="item.author.avatar_url"
-                   class="author-avatar"
-                   :alt="item.author.loginname">
-              <span class="count">
-                <span class="reply-count">
-                  {{item.reply_count}}/
-                </span>
-                <span class="visit-count">{{item.visit_count}}</span>
-              </span>
-              <span class="post-title">{{item.title}}</span>
-              <span class="last-reply-time">
-                {{item.last_reply_at|formatDate}}
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div id="container">
+      <ul class="panel">
+        <li v-for="(item,key) in postList"
+            :key="key"
+            class="cell">
+          <!-- 作者头像 -->
+          <img :src="item.author.avatar_url"
+               class="author-avatar"
+               :alt="item.author.loginname">
+          <!-- 回复量/浏览量 -->
+          <div class="count">
+            <span class="reply-count">
+              {{item.reply_count}}/
+            </span>
+            <span class="visit-count">{{item.visit_count}}</span>
+          </div>
+          <!-- 帖子分类 -->
+          <span :class="{put_top:(item.top==true),put_good:(item.good==true),topiclist_tab:(item.top!==true&&item.good!==true)}">
+            {{item|formatTab}}
+          </span>
+          <!-- 帖子标题 -->
+          <router-link :to="'/topic/'
+                       +item.id">
+            <span class="post-title">{{item.title}}</span>
+          </router-link>
+          <!-- 最后回复时间 -->
+          <span class="last-reply-time">
+            {{item.last_reply_at|formatDate}}
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -48,66 +55,86 @@ export default {
 }
 </script>
 <style lang="stylus">
-#main {
-  width: 90%;
-  max-width: 1400px;
-  min-width: 960px;
-  margin: 15px auto;
-  min-height: 400px;
+#container {
+  margin: 0 auto;
+  margin-right: 305px;
+  background-color: #fff;
 
-  #container {
-    margin: 0 auto;
-    margin-right: 305px;
-    background-color: #fff;
+  .cell {
+    padding: 10px;
+    font-size: 14px;
+    border-top: 1px solid #f0f0f0;
 
-    .cell {
-      padding: 10px;
-      font-size: 14px;
-      border-top: 1px solid #f0f0f0;
+    .author-avatar {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+    }
 
-      .author-avatar {
-        width: 30px;
-        height: 30px;
-        vertical-align: middle;
+    .count {
+      display: inline-block;
+      width: 70px;
+      text-align: center;
+      vertical-align: middle;
+
+      .reply-count {
+        color: #9e78c0;
+        font-size: 14px;
+        font-family: Tahoma;
       }
 
-      .count {
-        width: 70px;
-        text-align: center;
-        vertical-align: middle;
-
-        .reply-count {
-          color: #9e78c0;
-          font-size: 14px;
-          font-family: Tahoma;
-        }
-
-        .visit-count {
-          font-size: 10px;
-          color: #b4b4b4;
-          font-family: Tahoma;
-        }
+      .visit-count {
+        font-size: 10px;
+        color: #b4b4b4;
+        font-family: Tahoma;
       }
+    }
 
-      .post-title {
-        max-width: 70%;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        vertical-align: middle;
-        font-size: 16px;
-        line-height: 30px;
-        color: #333;
-        font-size: 16px;
-        font-family: Hiragino Sans GB;
-      }
+    .put_top, .put_good {
+      margin-right: 8px;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: 'Hiragino Sans GB';
+      color: #fff;
+      background: #80bd01;
+    }
 
-      .last-reply-time {
-        float: right;
-        font-size: 11px;
-        color: #778087;
-        font-family: 'Tahoma';
-        line-height: 28px;
-      }
+    .topiclist_tab {
+      margin-right: 8px;
+      background-color: #e5e5e5;
+      color: #999;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: 'Hiragino Sans GB';
+    }
+
+    .post-title {
+      display: inline-block;
+      width: 70%;
+      vertical-align: middle;
+      font-size: 16px;
+      line-height: 30px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #333;
+      font-size: 16px;
+      font-family: Hiragino Sans GB;
+      cursor: pointer;
+    }
+
+    .post-title:hover {
+      text-decoration: underline;
+    }
+
+    .last-reply-time {
+      float: right;
+      font-size: 11px;
+      color: #778087;
+      font-family: 'Tahoma';
+      line-height: 28px;
     }
   }
 }
