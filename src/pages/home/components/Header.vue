@@ -1,12 +1,14 @@
 <template>
   <div class="header">
     <div class="header-inner clearfix">
-      <div class="header-logo">
+      <router-link tag="div"
+                   to="/"
+                   class="header-logo">
         <img src="http://static2.cnodejs.org/public/images/cnodejs_light.svg"
              alt="">
-      </div>
+      </router-link>
       <div class="header-search">
-        <input type="text">
+        <span class="iconfont magnifier">&#xe60d;</span><input type="text">
       </div>
       <div class="header-nav">
         <ul>
@@ -48,6 +50,7 @@ export default {
       margin-top: -3px;
       height: 100%;
       font-size: 0;
+      cursor: pointer;
 
       img {
         max-width: 100%;
@@ -56,14 +59,25 @@ export default {
     }
 
     .header-search {
+      position: relative;
       float: left;
       height: 28px;
       width: 233px;
 
+      .magnifier {
+        display: inline-block;
+        position: absolute;
+        width: height;
+        left: 5px;
+        top: 1px;
+        transform: rotate(-270deg);
+        color: #595a59;
+      }
+
       input {
         width: 206px;
         height: 20px;
-        padding: 3px 5px 3px 22px;
+        padding: 3px 5px 3px 24px;
         border-radius: 15px;
         background-color: #888;
         transition: all 0.3s;
@@ -71,6 +85,10 @@ export default {
 
       input:hover {
         background-color: #fff;
+      }
+
+      input:hover .magnifier {
+        color: #adadad;
       }
     }
 

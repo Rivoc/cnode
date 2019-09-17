@@ -2,22 +2,33 @@
   <div>
     <home-header></home-header>
     <div id="main">
-      <user-info :UserInfo="UserInfo"></user-info>
+      <div class="loading"
+           v-show="loading">
+        <img src="../../assets/loading.gif"
+             alt="">
+      </div>
+      <user-side-bar v-if="UserInfo"
+                     :UserInfo="UserInfo"></user-side-bar>
+      <user-info v-if="UserInfo"
+                 :UserInfo="UserInfo"></user-info>
     </div>
   </div>
 </template>
 <script>
 import UserInfo from './components/Info'
 import HomeHeader from '../home/components/Header'
+import UserSideBar from './components/SideBar'
 export default {
   name: 'User',
   components: {
     UserInfo,
-    HomeHeader
+    HomeHeader,
+    UserSideBar
   },
   data () {
     return {
-      UserInfo: {}
+      UserInfo: null,
+      loading: true
     }
   },
   methods: {
@@ -27,7 +38,7 @@ export default {
         if (res.success && res.data) {
           const data = res.data
           this.UserInfo = data
-          console.log(data)
+          this.loading = false
         }
       }).catch(function (err) {
         console.log(err)
@@ -40,6 +51,22 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.loading {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #e1e1e1;
+
+  img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%);
+  }
+}
+
 #main {
   width: 90%;
   max-width: 1400px;

@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!-- 数据未返回时显示加载动画 -->
-    <div class="loading"
-         v-show="loading">
-      <img src="../../../assets/loading.gif"
-           alt="">
-    </div>
-    <!-- 数据返回显示主题帖子列表 -->
     <div id="container">
       <ul class="panel">
         <li v-for="(item,key) in postList"
@@ -38,25 +31,31 @@
           </span>
         </li>
       </ul>
+      <pagination @pageChange="handlePageChange"></pagination>
     </div>
+
   </div>
 </template>
 <script>
+import Pagination from './Pagination'
 export default {
   name: 'HomePostList',
+  components: {
+    Pagination
+  },
   props: {
     postList: Array
   },
-  data () {
-    return {
-      loading: false
+  methods: {
+    handlePageChange (page) {
+      this.$emit('renderList', page)
     }
   }
 }
 </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
 #container {
-  margin: 0 auto;
+  position: relative;
   margin-right: 305px;
   background-color: #fff;
 
@@ -136,6 +135,10 @@ export default {
       font-family: 'Tahoma';
       line-height: 28px;
     }
+  }
+
+  .cell:hover {
+    background: #f5f5f5;
   }
 }
 </style>

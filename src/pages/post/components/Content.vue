@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div class="loading"
-         v-show="isloading"></div>
     <div id="container">
       <div class="panel">
         <!-- 帖子头部 -->
@@ -50,7 +48,15 @@
                    class="author-avatar">
             </router-link>
             <!-- 作者昵称 -->
-            <span class="author-name">{{reply.author.loginname}}</span>
+            <router-link :to="{
+              name:'User',
+              params:{
+                loginname:reply.author.loginname
+              }
+            }"
+                         tag="span"
+                         class="author-name">{{reply.author.loginname}}</router-link>
+
             <span class="floor">{{index+1}}楼</span>
             <span class="time">{{reply.create_at|formatDate}}</span>
             <!-- 点赞数,点赞数为0就不显示点赞图标 -->
@@ -73,11 +79,6 @@ export default {
   name: 'PostContent',
   props: {
     postContent: Object
-  },
-  data () {
-    return {
-      isloading: false
-    }
   }
 }
 </script>
@@ -86,7 +87,6 @@ export default {
 @import url('../../../assets/styles/markdown.css');
 
 #container {
-  margin: 0 auto;
   margin-right: 305px;
 
   .panel {
@@ -156,6 +156,7 @@ export default {
   font-size: 12px;
   margin-left: 10px;
   font-family: 'Hiragino Sans GB';
+  cursor: pointer;
 }
 
 .floor, .time {

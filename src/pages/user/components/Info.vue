@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div class="loading"
-         v-show="isloading"></div>
     <div id="container">
       <!-- 用户信息 -->
       <div class="panel">
@@ -83,11 +81,6 @@ export default {
   props: {
     UserInfo: Object
   },
-  data () {
-    return {
-      isloading: false
-    }
-  },
   watch: {
     '$route' (to, from) {
       this.$router.go(0)
@@ -97,7 +90,6 @@ export default {
 </script>
 <style lang="stylus" scoped>
 #container {
-  margin: 0 auto;
   margin-right: 305px;
 
   .panel {
@@ -134,7 +126,6 @@ export default {
       }
 
       .score {
-        margin-top: 5px;
         font-family: 'Hiragino Sans GB';
         margin: 10px 0;
       }
