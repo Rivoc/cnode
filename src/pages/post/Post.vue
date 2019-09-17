@@ -29,8 +29,6 @@ export default {
       let res = response.data
       if (res.success && res.data) {
         const data = res.data
-        console.log(data.replies)
-        console.log(data.content)
         this.postContent = data
       }
     }

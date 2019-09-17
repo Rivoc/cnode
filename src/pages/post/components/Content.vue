@@ -3,7 +3,7 @@
     <div class="loading"
          v-show="isloading"></div>
     <div id="container">
-      <div class="topic-panel">
+      <div class="panel">
         <!-- 帖子头部 -->
         <div class="topic-header">
           <!-- 帖子标题 -->
@@ -16,7 +16,7 @@
           <!-- 帖子简要信息 -->
           <div class="change">
             <span>发布于：{{postContent.create_at|formatDate}}</span>
-            <!-- <span>作者：{{postContent.author.loginname}}</span> -->
+            <span>作者：{{postContent.author.loginname}}</span>
             <span>{{postContent.visit_count}}次浏览</span>
             <span>来自&nbsp;{{postContent|formatTab}}</span>
           </div>
@@ -38,10 +38,17 @@
              postContent.replies"
              :key="index">
           <div class="author-info">
-            <!-- 作者头像 -->
-            <img :src="reply.author.avatar_url"
-                 :alt="reply.author.loginname"
-                 class="author-avatar">
+            <!-- 作者头像,点击头像跳转到作者的个人信息页 -->
+            <router-link :to="{
+              name:'User',
+              params:{
+                loginname:reply.author.loginname
+              }
+            }">
+              <img :src="reply.author.avatar_url"
+                   :alt="reply.author.loginname"
+                   class="author-avatar">
+            </router-link>
             <!-- 作者昵称 -->
             <span class="author-name">{{reply.author.loginname}}</span>
             <span class="floor">{{index+1}}楼</span>
@@ -82,11 +89,14 @@ export default {
   margin: 0 auto;
   margin-right: 305px;
 
-  .topic-panel {
-    padding: 10px;
-    padding-bottom: 0;
+  .panel {
     border-radius: 3px;
     background-color: #fff;
+    margin-bottom: 13px;
+  }
+
+  .topic-header {
+    padding: 10px;
   }
 
   .topic-tit {
@@ -126,11 +136,6 @@ export default {
 }
 
 .reply.panel {
-  margin-top: 13px;
-  border: 1px soild red;
-  background-color: #fff;
-  border-radius: 3px;
-
   .author-info {
     font-family: 'Hiragino Sans GB';
   }
