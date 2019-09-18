@@ -12,19 +12,22 @@
                       :postList="postList"
                       @renderList="handleRender"></home-post-list>
     </div>
+    <back-top></back-top>
   </div>
 </template>
 <script>
 import HomeHeader from './components/Header'
 import HomePostList from './components/PostList'
 import HomeSideBar from './components/SideBar'
+import BackTop from '../../common/BackTop'
 
 export default {
   name: 'Home',
   components: {
     HomeHeader,
     HomePostList,
-    HomeSideBar
+    HomeSideBar,
+    BackTop
   },
   data () {
     return {
@@ -66,6 +69,7 @@ export default {
 <style lang="stylus" scoped>
 .loading {
   position: fixed;
+  z-index: 3;
   top: 50px;
   left: 0;
   right: 0;

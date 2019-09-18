@@ -13,18 +13,22 @@
                     :postContent="postContent"></post-content>
 
     </div>
+    <back-top></back-top>
+
   </div>
 </template>
 <script>
 import PostContent from './components/Content'
 import HomeHeader from '../home/components/Header'
 import PostSideBar from './components/SideBar'
+import BackTop from '../../common/BackTop'
 export default {
   name: 'Post',
   components: {
     HomeHeader,
     PostContent,
-    PostSideBar
+    PostSideBar,
+    BackTop
   },
   data () {
     return {
@@ -69,6 +73,7 @@ export default {
 <style lang="stylus" scoped>
 .loading {
   position: fixed;
+  z-index: 3;
   top: 50px;
   left: 0;
   right: 0;

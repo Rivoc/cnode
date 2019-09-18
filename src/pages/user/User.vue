@@ -53,6 +53,7 @@ export default {
 <style lang="stylus" scoped>
 .loading {
   position: fixed;
+  z-index: 3;
   top: 50px;
   left: 0;
   right: 0;

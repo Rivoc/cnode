@@ -1,6 +1,14 @@
 <template>
   <div>
     <div id="container">
+      <div class="header">
+        <div class="tabs current_tab">全部</div>
+        <div class="tabs">精华</div>
+        <div class="tabs">分享</div>
+        <div class="tabs">问答</div>
+        <div class="tabs">招聘</div>
+        <div class="tabs">客户端测试</div>
+      </div>
       <ul class="panel">
         <li v-for="(item,key) in postList"
             :key="key"
@@ -58,6 +66,26 @@ export default {
   position: relative;
   margin-right: 305px;
   background-color: #fff;
+
+  .header {
+    padding: 10px;
+    background: #f6f6f6;
+    font-family: 'Hiragino Sans GB';
+    font-size: 14px;
+
+    .tabs {
+      display: inline-block;
+      margin: 0 10px;
+      color: #80bd01;
+      padding: 3px 4px;
+      border-radius: 3px;
+    }
+
+    .tabs.current_tab {
+      color: #fff;
+      background-color: #80bd01;
+    }
+  }
 
   .cell {
     padding: 10px;
