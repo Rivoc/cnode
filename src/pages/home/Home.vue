@@ -10,7 +10,8 @@
       <home-side-bar></home-side-bar>
       <home-post-list v-if="postList"
                       :postList="postList"
-                      @renderList="handleRender"></home-post-list>
+                      @renderList="handleRender"
+                      @tabsChange="handletabsChange"></home-post-list>
     </div>
     <back-top></back-top>
   </div>
@@ -33,6 +34,7 @@ export default {
     return {
       postList: null,
       page: 1,
+      tab: '',
       loading: true
     }
   },
@@ -41,6 +43,7 @@ export default {
       this.$axios.get('https://cnodejs.org/api/v1/topics', {
         params: {
           page: this.page,
+          tab: this.tab,
           limit: 20
         }
 
@@ -58,6 +61,10 @@ export default {
     },
     handleRender (page) {
       this.page = page
+      this.getHomeData()
+    },
+    handletabsChange (tab) {
+      this.tab = tab
       this.getHomeData()
     }
   },

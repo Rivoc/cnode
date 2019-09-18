@@ -2,12 +2,11 @@
   <div>
     <div id="container">
       <div class="header">
-        <div class="tabs current_tab">全部</div>
-        <div class="tabs">精华</div>
-        <div class="tabs">分享</div>
-        <div class="tabs">问答</div>
-        <div class="tabs">招聘</div>
-        <div class="tabs">客户端测试</div>
+        <div v-for="(item,index) in tabsList"
+             :key="index"
+             :class="['tabs',{currentTab:(currentTab===item)}]"
+             @click="handleTabsClick(item)"
+             ref="tabs">{{ctabs[index]}}</div>
       </div>
       <ul class="panel">
         <li v-for="(item,key) in postList"
@@ -54,9 +53,20 @@ export default {
   props: {
     postList: Array
   },
+  data () {
+    return {
+      tabsList: ['all', 'good', 'share', 'ask', 'job', 'dev'],
+      ctabs: ['全部', '精华', '分享', '问答', '招聘', '客户端测试'],
+      currentTab: 'all'
+    }
+  },
   methods: {
     handlePageChange (page) {
       this.$emit('renderList', page)
+    },
+    handleTabsClick (item) {
+      this.currentTab = item
+      this.$emit('tabsChange', item)
     }
   }
 }
@@ -79,9 +89,14 @@ export default {
       color: #80bd01;
       padding: 3px 4px;
       border-radius: 3px;
+      cursor: pointer;
     }
 
-    .tabs.current_tab {
+    .tabs:hover {
+      color: #005580;
+    }
+
+    .tabs.currentTab {
       color: #fff;
       background-color: #80bd01;
     }
